@@ -24,7 +24,15 @@
         allMessages.appendChild(p);
       });
 
-      sendBtn.addEventListener("click", () => {
+      sendBtn.addEventListener("click", sendMessage);
+
+      inputField.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+
+      function sendMessage() {
         const message = inputField.value;
         if (message.trim() === "") return;
         socket.emit("user-message", {
@@ -32,7 +40,7 @@
           message: message,
         });
         inputField.value = "";
-      });
+      }
     </script>
   </body>
 </html>
